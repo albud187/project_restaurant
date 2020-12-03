@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'rest_framework.authtoken',
-    
+
     'app_restaurants_auth',
     'app_menu_orders'
 ]
