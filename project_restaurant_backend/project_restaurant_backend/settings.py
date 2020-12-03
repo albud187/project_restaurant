@@ -37,6 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
+    'bootstrap4',
+
+    'rest_framework',
+    'corsheaders',
+    'rest_auth',
+    'rest_auth.registration',
+    'rest_framework.authtoken',
+    
     'app_restaurants_auth',
     'app_menu_orders'
 ]
