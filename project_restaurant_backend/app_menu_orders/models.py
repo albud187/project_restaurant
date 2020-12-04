@@ -19,7 +19,7 @@ class MenuItem(models.Model):
     price = models.FloatField()
     description = models.TextField(blank=True, null = True)
     def __str__(self):
-        return (self.owner_menu.owner_restaurant.name + ' / '+ self.name)
+        return (self.owner_menu.owner_restaurant.name + ' / ' + self.owner_menu.title + ' / '+ self.name)
 
 # #subitem is for stuff like pizza toppings
 # class SubItem(models.Model):
@@ -43,13 +43,14 @@ class Order(models.Model):
     ]
     type = models.CharField(max_length = 3, choices = ORDER_TYPES, default=TAKEOUT) #take-out, delivery, dine in
 
-    RECIEVED, INPROGRESS, FULFILLED = 'REC', 'INP', 'FUL'
+    STARTED, RECIEVED, INPROGRESS, FULFILLED = 'STA', 'REC', 'INP', 'FUL'
     ORDER_STATUSES = [
+    (STARTED, 'started'),
     (RECIEVED, 'recieved'),
     (INPROGRESS, 'in progress'),
     (FULFILLED, 'fulfilled'),
     ]
-    order_status = models.CharField(max_length=3, choices = ORDER_STATUSES, default = RECIEVED)
+    order_status = models.CharField(max_length=3, choices = ORDER_STATUSES, blank= True, null = True)
 
     date_created = models.DateField(auto_now=True)
 
@@ -64,7 +65,7 @@ class Order(models.Model):
             cost = cost + item.food_item.price*item.quantity
 
         return(cost)
-#
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     food_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)

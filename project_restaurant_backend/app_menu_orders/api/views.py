@@ -26,15 +26,19 @@ from rest_framework.generics import (
     UpdateAPIView
 )
 
+def test():
+    print('TEST PASSED')
+    print('TEST PASSED')
+    print('TEST PASSED')
+
+def view_response(response):
+    dict = response.data
+    print(dict)
+
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
 
-    # def get_queryset(self):
-    #     if self.request.user.is_superuser:
-    #         return NoteGroup.objects.all()
-    #     else:
-    #         return NoteGroup.objects.filter(author=self.request.user)
 
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
@@ -47,6 +51,29 @@ class MenuItemViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        response = super(OrderViewSet, self).create(request, *args, **kwargs)
+        print(response)
+        return(response)
+
+    def update(self, request, *args, **kwargs):
+        response = super(OrderViewSet, self).update(request, *args, **kwargs)
+        if response.data['order_status'] == 'REC':
+            print('SEND EMAIL')
+
+            sender = Order.objects.filter(id=response.data['id'])[0].restaurant.owner.email
+            print('SENDER IS ' + sender)
+
+            recipient = response.data['email']
+            print('SENDER IS ' + recipient)
+
+            order_items = list(OrderItem.objects.filter(order = response.data['id']))
+            print(order_items)
+
+
+        return(response)
+
 
 class OrderItemViewSet(viewsets.ModelViewSet):
     serializer_class = OrderItemSerializer
