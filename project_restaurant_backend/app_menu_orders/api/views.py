@@ -5,6 +5,10 @@ Order,
 OrderItem
 )
 
+from app_restaurants_auth.models import (
+Restaurant
+)
+
 from .serializers import (
     MenuSerializer,
     MenuItemSerializer,
@@ -26,14 +30,16 @@ from rest_framework.generics import (
     UpdateAPIView
 )
 
-def test():
-    print('TEST PASSED')
-    print('TEST PASSED')
-    print('TEST PASSED')
+def send_order(response):
+    recipient = response.data['email']
+    restaurant_name = Restaurant.objects.filter(id=response.data['restaurant'])[0].name
+    order_items = list(OrderItem.objects.filter(order = response.data['id']))
 
-def view_response(response):
-    dict = response.data
-    print(dict)
+    print('RECIPIENT IS ' + recipient)
+    print('RESTAURANT IS ' + restaurant_name)
+    print('ITEMS ARE : ')
+    for item in order_items:
+        print(item.food_item)
 
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
@@ -54,22 +60,23 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = super(OrderViewSet, self).create(request, *args, **kwargs)
-        print(response)
+        print(response.data)
         return(response)
 
     def update(self, request, *args, **kwargs):
         response = super(OrderViewSet, self).update(request, *args, **kwargs)
         if response.data['order_status'] == 'REC':
-            print('SEND EMAIL')
-
-            sender = Order.objects.filter(id=response.data['id'])[0].restaurant.owner.email
-            print('SENDER IS ' + sender)
-
-            recipient = response.data['email']
-            print('SENDER IS ' + recipient)
-
-            order_items = list(OrderItem.objects.filter(order = response.data['id']))
-            print(order_items)
+            send_order(response)
+            # print('SEND EMAIL')
+            #
+            # sender = Order.objects.filter(id=response.data['id'])[0].restaurant.owner.email
+            # print('SENDER IS ' + sender)
+            #
+            # recipient = response.data['email']
+            # print('RECIPIENT IS ' + recipient)
+            #
+            # order_items = list(OrderItem.objects.filter(order = response.data['id']))
+            # print(order_items)
 
 
         return(response)
