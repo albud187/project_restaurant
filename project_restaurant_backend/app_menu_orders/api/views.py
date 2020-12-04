@@ -41,13 +41,13 @@ class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
 
 class MenuItemViewSet(viewsets.ModelViewSet):
-    serializer_class = MenuSerializer
-    queryset = Menu.objects.all()
+    serializer_class = MenuItemSerializer
+    queryset = MenuItem.objects.all()
 
 class OrderViewSet(viewsets.ModelViewSet):
-    serializer_class = MenuSerializer
-    queryset = Menu.objects.all()
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
 
 class OrderItemViewSet(viewsets.ModelViewSet):
-    serializer_class = MenuSerializer
-    queryset = Menu.objects.all()
+    serializer_class = OrderItemSerializer
+    queryset = OrderItem.objects.all()

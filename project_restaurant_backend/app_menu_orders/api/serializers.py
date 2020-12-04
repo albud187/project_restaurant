@@ -14,15 +14,15 @@ class MenuSerializer(serializers.ModelSerializer):
 
 class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Menu
+        model = MenuItem
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Menu
+        model = Order
         fields = '__all__'
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Menu
+        model = OrderItem
         fields = '__all__'

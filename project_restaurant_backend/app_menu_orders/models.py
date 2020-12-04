@@ -18,7 +18,6 @@ class MenuItem(models.Model):
     name = models.CharField(max_length = 120)
     price = models.FloatField()
     description = models.TextField(blank=True, null = True)
-
     def __str__(self):
         return (self.owner_menu.owner_restaurant.name + ' / '+ self.name)
 
@@ -30,11 +29,28 @@ class MenuItem(models.Model):
 #     description = models.TextField()
 
 class Order(models.Model):
+
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     email = models.CharField(max_length = 120)
     phone = models.CharField(max_length = 120)
-    notes = models.TextField()
-    type = models.CharField(max_length = 120) #take-out, delivery, dine in
+    notes = models.TextField(blank=True, null=True)
+
+    DELIVERY, TAKEOUT, DINEIN = 'DEL','TAK', 'DIN'
+    ORDER_TYPES = [
+    (DELIVERY, 'delivery'),
+    (TAKEOUT, 'takeout'),
+    (DINEIN, 'dine-in')
+    ]
+    type = models.CharField(max_length = 3, choices = ORDER_TYPES, default=TAKEOUT) #take-out, delivery, dine in
+
+    RECIEVED, INPROGRESS, FULFILLED = 'REC', 'INP', 'FUL'
+    ORDER_STATUSES = [
+    (RECIEVED, 'recieved'),
+    (INPROGRESS, 'in progress'),
+    (FULFILLED, 'fulfilled'),
+    ]
+    order_status = models.CharField(max_length=3, choices = ORDER_STATUSES, default = RECIEVED)
+
     date_created = models.DateField(auto_now=True)
 
     def __str__(self):
