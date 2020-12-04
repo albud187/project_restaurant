@@ -2,7 +2,9 @@ from rest_framework import serializers
 
 from app_menu_orders.models import (
 Menu,
-MenuItem
+MenuItem,
+Order,
+OrderItem
 )
 
 class MenuSerializer(serializers.ModelSerializer):
