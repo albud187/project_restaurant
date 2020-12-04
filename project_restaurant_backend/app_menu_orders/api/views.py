@@ -1,11 +1,15 @@
 from app_menu_orders.models import (
-    Menu,
-    MenuItem
-
-    )
+Menu,
+MenuItem,
+Order,
+OrderItem
+)
 
 from .serializers import (
-    MenuSerializer)
+    MenuSerializer,
+    MenuItemSerializer,
+    OrderSerializer,
+    OrderItemSerializer)
 
 import json
 from rest_framework import viewsets
@@ -31,3 +35,19 @@ class MenuViewSet(viewsets.ModelViewSet):
     #         return NoteGroup.objects.all()
     #     else:
     #         return NoteGroup.objects.filter(author=self.request.user)
+
+class MenuViewSet(viewsets.ModelViewSet):
+    serializer_class = MenuSerializer
+    queryset = Menu.objects.all()
+
+class MenuItemViewSet(viewsets.ModelViewSet):
+    serializer_class = MenuSerializer
+    queryset = Menu.objects.all()
+
+class OrderViewSet(viewsets.ModelViewSet):
+    serializer_class = MenuSerializer
+    queryset = Menu.objects.all()
+
+class OrderItemViewSet(viewsets.ModelViewSet):
+    serializer_class = MenuSerializer
+    queryset = Menu.objects.all()

@@ -1,6 +1,8 @@
 from app_menu_orders.api.views import (
-MenuViewSet
-
+MenuViewSet,
+MenuItemViewSet,
+OrderViewSet,
+OrderItemViewSet
 )
 
 from rest_framework.routers import DefaultRouter

@@ -11,7 +11,7 @@ class Menu(models.Model):
     owner_restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
     def __str__(self):
-        return ( self.owner_restaurant.name + ' / '+ self.title)
+        return (self.owner_restaurant.name + ' / '+ self.title)
 
 class MenuItem(models.Model):
     owner_menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
