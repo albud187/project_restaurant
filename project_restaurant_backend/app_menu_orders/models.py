@@ -21,7 +21,7 @@ class MenuItem(models.Model):
     def __str__(self):
         return (self.owner_menu.owner_restaurant.name + ' / ' + self.owner_menu.title + ' / '+ self.name)
 
-# #subitem is for stuff like pizza toppings
+# #subitem is for stuff like pizza toppings and variations of items
 # class SubItem(models.Model):
 #     base_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
 #     name = models.CharField(max_length=120)

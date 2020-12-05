@@ -30,16 +30,39 @@ from rest_framework.generics import (
     UpdateAPIView
 )
 
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import EmailMessage
+
+
 def send_order(response):
     recipient = response.data['email']
     restaurant_name = Restaurant.objects.filter(id=response.data['restaurant'])[0].name
+
     order_items = list(OrderItem.objects.filter(order = response.data['id']))
+    restaurant_email = Restaurant.objects.filter(id=response.data['restaurant'])[0].email
+
+    order_id = response.data['id']
 
     print('RECIPIENT IS ' + recipient)
     print('RESTAURANT IS ' + restaurant_name)
+    print('RESTAURANT EMAIL IS ' + restaurant_email)
+
     print('ITEMS ARE : ')
     for item in order_items:
         print(item.food_item)
+
+    email_subject = restaurant_name + ' ORDER ' + str(order_id)
+    message = 'test'
+    email_message = EmailMessage(
+    email_subject,
+    message,
+    settings.EMAIL_HOST_USER,
+    [restaurant_email]
+    )
+    email_message.send()
+    print(email_subject)
+
 
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
