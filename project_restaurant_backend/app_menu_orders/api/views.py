@@ -54,12 +54,14 @@ def send_order(response):
 
     email_subject = restaurant_name + ' ORDER ' + str(order_id)
     message = 'test'
+
     email_message = EmailMessage(
     email_subject,
     message,
     settings.EMAIL_HOST_USER,
     [restaurant_email]
     )
+
     email_message.send()
     print(email_subject)
 
@@ -67,7 +69,6 @@ def send_order(response):
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
-
 
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
