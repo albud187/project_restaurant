@@ -1,26 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom';
+import {connect} from 'react-redux'
+import BaseRouter from './Routes';
+import 'antd/dist/antd.css'
+import CustomLayout from './containers/Layout.js'
 import axios from 'axios'
-function App() {
+
+import * as actions from './store/actions/auth.js'
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
+class App extends Component {
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <div className="App">
+
+      <Router>
+        <CustomLayout {...this.props}>
+          <BaseRouter/>
+        </CustomLayout>
+      </Router>
+      </div>
+    );
+  }
+}
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null,
+    token: state.token
+  }
 }
 
-export default App;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onTryAutosignup: () => dispatch(actions.authCheckState())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
