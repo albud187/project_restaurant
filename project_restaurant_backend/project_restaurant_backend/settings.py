@@ -15,10 +15,10 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-FRONTEND_DIR = os.path.join(BASE_DIR.parent, 'frontend')
+FRONTEND_DIR = os.path.join(BASE_DIR.parent, 'project_restaurant_frontend')
 # BUILD_DIR = os.path.join(FRONTEND_DIR, 'build')
 
-BACKEND_FOLDER = os.path.join(BASE_DIR.parent, 'backend')
+BACKEND_FOLDER = os.path.join(BASE_DIR.parent, 'project_restaurant_backend')
 BACKEND_TEMPLATES_DIR = os.path.join(BACKEND_FOLDER, 'backend_templates')
 print(BACKEND_TEMPLATES_DIR)
 
@@ -94,7 +94,7 @@ ROOT_URLCONF = 'project_restaurant_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BACKEND_TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

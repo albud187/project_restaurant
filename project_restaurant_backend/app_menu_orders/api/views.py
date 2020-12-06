@@ -33,9 +33,9 @@ from rest_framework.generics import (
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
-
-def send_order(response):
+def send_order_notification(response):
     recipient = response.data['email']
     restaurant_name = Restaurant.objects.filter(id=response.data['restaurant'])[0].name
 
@@ -52,8 +52,12 @@ def send_order(response):
     for item in order_items:
         print(item.food_item)
 
-    email_subject = restaurant_name + ' ORDER ' + str(order_id)
-    message = 'test'
+    email_subject = 'ORDER NOTIFICATION ' + restaurant_name + ' # ' + str(order_id)
+    message = render_to_string('app_menu_order/order_notification.html',
+    {'restaurant': restaurant_name,
+    'recipient': recipient
+
+    })
 
     email_message = EmailMessage(
     email_subject,
@@ -90,7 +94,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         response = super(OrderViewSet, self).update(request, *args, **kwargs)
         if response.data['order_status'] == 'REC':
-            send_order(response)
+            send_order_notification(response)
             # print('SEND EMAIL')
             #
             # sender = Order.objects.filter(id=response.data['id'])[0].restaurant.owner.email
