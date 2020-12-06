@@ -1,14 +1,20 @@
-{% autoescape off%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
 
-Order Notification
+    Order Notification
 
-Recipient is {{recipient}}
+    Recipient is {{recipient}}
 
-Orders are:
+    Orders are:
 
-{{order}}
+    {{order|safe}}
 
-*click here to view all orders*
+    *click here to view all orders*
 
-
-{% endautoescape %}
+  </body>
+</html>
