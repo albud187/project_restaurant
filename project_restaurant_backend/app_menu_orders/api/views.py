@@ -34,19 +34,19 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+import pandas as pd
 
 def send_order_notification(response):
     recipient = response.data['email']
     restaurant_name = Restaurant.objects.filter(id=response.data['restaurant'])[0].name
 
     order_items = list(OrderItem.objects.filter(order = response.data['id']))
+    order_df = pd.DataFrame(order_items)
+    order_df_html = order_df.to_html()
     restaurant_email = Restaurant.objects.filter(id=response.data['restaurant'])[0].email
 
     order_id = response.data['id']
 
-    print('RECIPIENT IS ' + recipient)
-    print('RESTAURANT IS ' + restaurant_name)
-    print('RESTAURANT EMAIL IS ' + restaurant_email)
 
     print('ITEMS ARE : ')
     for item in order_items:
@@ -55,7 +55,8 @@ def send_order_notification(response):
     email_subject = 'ORDER NOTIFICATION ' + restaurant_name + ' # ' + str(order_id)
     message = render_to_string('app_menu_order/order_notification.html',
     {'restaurant': restaurant_name,
-    'recipient': recipient
+    'recipient': recipient,
+    'order': order_df_html
 
     })
 
