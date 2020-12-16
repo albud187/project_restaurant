@@ -41,7 +41,7 @@ from django.template.loader import render_to_string
 import pandas as pd
 
 def send_order_notification(response):
-    recipient = response.data['email']
+    recipient = response.data['email'] + ' / ' + response.data['phone']
     restaurant_name = Restaurant.objects.filter(id=response.data['restaurant'])[0].name
 
     order_items = OrderItem.objects.filter(order = response.data['id'])
