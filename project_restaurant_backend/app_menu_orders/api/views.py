@@ -37,8 +37,11 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-
+import pickle
 import pandas as pd
+
+def send_order_confirmation(resposne):
+    pass
 
 def send_order_notification(response):
     recipient = response.data['email'] + ' / ' + response.data['phone']
@@ -50,11 +53,21 @@ def send_order_notification(response):
     for item in order_items:
         order_items_list.append(item.__dict__)
 
+
+
+    #names
+    food_item_names = []
+    for item in order_items_list:
+        food_item_names.append(str(OrderItem.objects.filter(id=item['id'])[0]).split(' / ')[3])
+
     order_df = pd.DataFrame(order_items_list)
+    order_df['food items'] = food_item_names
     order_df_html = order_df.to_html()
     restaurant_email = Restaurant.objects.filter(id=response.data['restaurant'])[0].email
 
     order_id = response.data['id']
+    print(order_items_list[0].keys())
+
 
 
     print('ITEMS ARE : ')
