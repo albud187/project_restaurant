@@ -60,15 +60,22 @@ def send_order_notification(response):
     for item in order_items_list:
         food_item_names.append(str(OrderItem.objects.filter(id=item['id'])[0]).split(' / ')[3])
 
+    #costs
+    costs = []
+    for item in order_items_list:
+        itemCost = OrderItem.objects.filter(id=item['id'])[0].food_item.price
+        costs.append(item["quantity"]*itemCost)
+
+    total_order_cost = sum(costs)
+
     order_df = pd.DataFrame(order_items_list)
-    order_df['food items'] = food_item_names
-    order_df_html = order_df.to_html()
+    order_df['food item'] = food_item_names
+    order_df['cost'] = costs
+    order_df_html = order_df[['food item', 'quantity', 'cost']].to_html()
     restaurant_email = Restaurant.objects.filter(id=response.data['restaurant'])[0].email
 
     order_id = response.data['id']
     print(order_items_list[0].keys())
-
-
 
     print('ITEMS ARE : ')
     for item in order_items:
@@ -78,7 +85,8 @@ def send_order_notification(response):
     html_message = render_to_string('app_menu_order/order_notification.html',
     {'restaurant': restaurant_name,
     'recipient': recipient,
-    'order': order_df_html
+    'order': order_df_html,
+    'order_cost':total_order_cost
     })
     plain_message = strip_tags(html_message)
 
