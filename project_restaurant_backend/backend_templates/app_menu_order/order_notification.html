@@ -8,18 +8,16 @@
 
     Order Notification
 
-    <p>{{recipient}} has ordered the following items:</p>
+    <p>{{customer_name}} has ordered the following items:</p>
 
-<p>
-    {{order|safe}}
-</p>
+    <p> {{order|safe}} </p>
 
-<p>
-  total cost is {{order_cost}}
-</p>
+    <p>total cost is {{order_cost}}</p>
 
-<p>
-    *click here to view your orders*
-</p>
+
+    <p>  {{customer_name}} can be contacted at {{recipient}}</p>
+    <p>*click here to view your orders*</p>
+
+
   </body>
 </html>

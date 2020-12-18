@@ -29,7 +29,7 @@ class MenuItem(models.Model):
 #     description = models.TextField()
 
 class Order(models.Model):
-
+    name = models.CharField(max_length = 120)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     email = models.CharField(max_length = 120)
     phone = models.CharField(max_length = 120)

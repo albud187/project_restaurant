@@ -45,6 +45,7 @@ def send_order_confirmation(resposne):
 
 def send_order_notification(response):
     recipient = response.data['email'] + ' / ' + response.data['phone']
+    customer_name = response.data['name']
     restaurant_name = Restaurant.objects.filter(id=response.data['restaurant'])[0].name
 
     order_items = OrderItem.objects.filter(order = response.data['id'])
@@ -52,8 +53,6 @@ def send_order_notification(response):
     order_items_list=[]
     for item in order_items:
         order_items_list.append(item.__dict__)
-
-
 
     #names
     food_item_names = []
@@ -77,13 +76,10 @@ def send_order_notification(response):
     order_id = response.data['id']
     print(order_items_list[0].keys())
 
-    print('ITEMS ARE : ')
-    for item in order_items:
-        print(item.food_item)
-
     email_subject = 'ORDER NOTIFICATION ' + restaurant_name + ' # ' + str(order_id)
     html_message = render_to_string('app_menu_order/order_notification.html',
     {'restaurant': restaurant_name,
+    'customer_name':customer_name,
     'recipient': recipient,
     'order': order_df_html,
     'order_cost':total_order_cost
