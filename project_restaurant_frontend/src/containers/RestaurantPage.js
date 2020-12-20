@@ -12,23 +12,48 @@ class RestaurantPage extends Component {
     menu_items:[],
   }
 
+  fetchRestaurant = (restaurantID)=>{
+    axios.get(`${API_PATH}api/Restaurants/${restaurantID}/`)
+    .then(result=>{
+      this.setState({
+        restaurant:result.data
+      })
+      console.log("fetching restaurant data...")
+      console.log(result.data)
+    })
+  }
+
+  fetchMenus = (restaurantID) =>{
+    axios.get(`${API_PATH}api/restaurant_menus?restaurantID=${restaurantID}`)
+    .then(result=>{
+      this.setState({
+        menus:result.data
+      })
+      console.log("fetching restaurant menus...")
+      console.log(result.data)
+    })
+  }
+
+  fetchMenuItems = (menuID) =>{
+    axios.get(`${API_PATH}api/restaurant_menus_items?menuID=${menuID}`)
+    .then(result=>{
+      this.setState({
+        menus_items:this.state.menus.concat(result.data)
+      })
+      console.log("fetching menu items")
+      console.log(result.data)
+    })
+  }
+
 
 componentDidMount(){
   const restaurantID = this.props.match.params.restaurantID;
-
-  axios.get(`${API_PATH}api/Restaurants/${restaurantID}/`)
-  .then(result=>{
-    this.setState({
-      restaurant:result.data
-    })
-    console.log(result.data)
-  })
-
-  
-
-
+  this.fetchRestaurant(restaurantID);
+  this.fetchMenus(restaurantID);
+  this.fetchMenuItems(3)
 
 }
+
 
 
   render() {
