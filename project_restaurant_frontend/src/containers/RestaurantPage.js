@@ -34,8 +34,8 @@ class RestaurantPage extends Component {
     })
   }
 
-  fetchMenuItems = (menuID) =>{
-    axios.get(`${API_PATH}api/restaurant_menus_items?menuID=${menuID}`)
+  fetchMenuItems = (restaurantID) =>{
+    axios.get(`${API_PATH}api/restaurant_items?restaurantID=${restaurantID}`)
     .then(result=>{
       this.setState({
         menus_items:this.state.menus.concat(result.data)
@@ -50,7 +50,7 @@ componentDidMount(){
   const restaurantID = this.props.match.params.restaurantID;
   this.fetchRestaurant(restaurantID);
   this.fetchMenus(restaurantID);
-  this.fetchMenuItems(3)
+  this.fetchMenuItems(restaurantID);
 
 }
 

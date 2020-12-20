@@ -4,7 +4,7 @@ MenuItemViewSet,
 OrderViewSet,
 OrderItemViewSet,
 MenuByRestaurantView,
-ItemByMenuView
+ItemByRestaurantView
 )
 
 from rest_framework.routers import DefaultRouter
@@ -18,7 +18,7 @@ router.register('OrderItems', OrderItemViewSet, basename='OrderItems')
 
 function_views=[
     path('restaurant_menus',MenuByRestaurantView.as_view(), name='restaurant_menus'),
-    path('restaurant_menus_items',ItemByMenuView.as_view(), name='restaurant_menus_items')
+    path('restaurant_items',ItemByRestaurantView.as_view(), name='restaurant_items')
 
 
 

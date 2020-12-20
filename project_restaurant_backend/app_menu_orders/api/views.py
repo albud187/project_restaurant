@@ -128,14 +128,14 @@ class MenuByRestaurantView(ListAPIView):
         return(target_queryset)
 
 
-class ItemByMenuView(ListAPIView):
+class ItemByRestaurantView(ListAPIView):
     serializer_class = MenuItemSerializer
 
     def get_queryset(self):
-        menuID = self.request.GET['menuID']
+        restaurantID = self.request.GET['restaurantID']
 
-        if menuID:
-            target_queryset = MenuItem.objects.filter(owner_menu=menuID)
+        if restaurantID:
+            target_queryset = MenuItem.objects.filter(owner_restaurant=restaurantID)
         return(target_queryset)
 
 

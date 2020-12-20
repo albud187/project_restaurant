@@ -18,6 +18,8 @@ class MenuItem(models.Model):
     name = models.CharField(max_length = 120)
     price = models.FloatField()
     description = models.TextField(blank=True, null = True)
+    owner_restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
     def __str__(self):
         return (self.owner_menu.owner_restaurant.name + ' / ' + self.owner_menu.title + ' / '+ self.name)
 
