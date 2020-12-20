@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Form, Input, Button } from 'antd';
+import { List,Card } from 'antd';
+import { Row, Col } from 'antd';
 
 import * as API_PATHS from '../api_path.js'
 const API_PATH = API_PATHS.API_PATH
@@ -51,9 +54,7 @@ componentDidMount(){
   this.fetchRestaurant(restaurantID);
   this.fetchMenus(restaurantID);
   this.fetchMenuItems(restaurantID);
-
 }
-
 
 
   render() {
@@ -67,8 +68,35 @@ componentDidMount(){
       <p>restaurant name = {this.state.restaurant.name}</p>
       <p>restaurant address = {this.state.restaurant.street_address}</p>
 
+      <List
+        dataSource={this.state.menus}
+        renderItem={menu => (
+          <List.Item key={menu.id}>
+            <List.Item.Meta
+              title={<p>
+              {menu.title}
+              </p>}/>
+
+              <List
+                dataSource={this.state.menu_items}
+                renderItem={menu_item => (
+                  <List.Item key={menu_item.id}>
+                    <List.Item.Meta
+                      title={<p>
+                      {menu.title}
+                      </p>}/>
 
 
+
+                  </List.Item>
+                )}
+              />
+
+
+
+          </List.Item>
+        )}
+      />
 
       </div>
     )
