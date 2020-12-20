@@ -105,7 +105,6 @@ def send_order_notification(response):
     # )
     print(email_subject)
 
-
 class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
@@ -117,6 +116,28 @@ class MenuViewSet(viewsets.ModelViewSet):
 class MenuItemViewSet(viewsets.ModelViewSet):
     serializer_class = MenuItemSerializer
     queryset = MenuItem.objects.all()
+
+class MenuByRestaurantView(ListAPIView):
+    serializer_class = MenuSerializer
+
+    def get_queryset(self):
+        restaurantID = self.request.GET['restaurantID']
+
+        if restaurantID:
+            target_queryset = Menu.objects.filter(owner_restaurant=restaurantID)
+        return(target_queryset)
+
+
+class ItemByMenuView(ListAPIView):
+    serializer_class = MenuItemSerializer
+
+    def get_queryset(self):
+        menuID = self.request.GET['menuID']
+
+        if menuID:
+            target_queryset = MenuItem.objects.filter(owner_menu=menuID)
+        return(target_queryset)
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
@@ -131,17 +152,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         response = super(OrderViewSet, self).update(request, *args, **kwargs)
         if response.data['order_status'] == 'REC':
             send_order_notification(response)
-            # print('SEND EMAIL')
-            #
-            # sender = Order.objects.filter(id=response.data['id'])[0].restaurant.owner.email
-            # print('SENDER IS ' + sender)
-            #
-            # recipient = response.data['email']
-            # print('RECIPIENT IS ' + recipient)
-            #
-            # order_items = list(OrderItem.objects.filter(order = response.data['id']))
-            # print(order_items)
-
 
         return(response)
 

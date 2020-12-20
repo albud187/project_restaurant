@@ -2,7 +2,9 @@ from app_menu_orders.api.views import (
 MenuViewSet,
 MenuItemViewSet,
 OrderViewSet,
-OrderItemViewSet
+OrderItemViewSet,
+MenuByRestaurantView,
+ItemByMenuView
 )
 
 from rest_framework.routers import DefaultRouter
@@ -15,6 +17,11 @@ router.register('Orders', OrderViewSet, basename='Orders')
 router.register('OrderItems', OrderItemViewSet, basename='OrderItems')
 
 function_views=[
+    path('restaurant_menus',MenuByRestaurantView.as_view(), name='restaurant_menus'),
+    path('restaurant_menus_items',ItemByMenuView.as_view(), name='restaurant_menus_items')
+
+
+
 
 ]
 
