@@ -5,7 +5,29 @@ import { List,Card } from 'antd';
 import { Row, Col } from 'antd';
 
 import * as API_PATHS from '../api_path.js'
+
 const API_PATH = API_PATHS.API_PATH
+
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
+function sort_menu_item(menu_items){
+  var menus = [];
+  var food_item;
+  for (food_item of menu_items){
+    menus.push(food_item.["owner_menu"])
+  }
+
+  var unique_menus = menus.filter(onlyUnique)
+
+
+  console.log('function test')
+  console.log(unique_menus)
+  return(unique_menus)
+
+}
 
 class RestaurantPage extends Component {
 
@@ -41,7 +63,7 @@ class RestaurantPage extends Component {
     axios.get(`${API_PATH}api/restaurant_items?restaurantID=${restaurantID}`)
     .then(result=>{
       this.setState({
-        menus_items:this.state.menus.concat(result.data)
+        menu_items:result.data
       })
       console.log("fetching menu items")
       console.log(result.data)
@@ -69,6 +91,19 @@ componentDidMount(){
       <p>restaurant address = {this.state.restaurant.street_address}</p>
 
       <List
+        dataSource={sort_menu_item(this.state.menu_items)}
+        renderItem={item => (
+          <List.Item key={item}>
+            <List.Item.Meta
+              title={<p>
+              {item}
+              </p>}/>
+
+          </List.Item>
+        )}
+      />
+
+      <List
         dataSource={this.state.menus}
         renderItem={menu => (
           <List.Item key={menu.id}>
@@ -77,26 +112,11 @@ componentDidMount(){
               {menu.title}
               </p>}/>
 
-              <List
-                dataSource={this.state.menu_items}
-                renderItem={menu_item => (
-                  <List.Item key={menu_item.id}>
-                    <List.Item.Meta
-                      title={<p>
-                      {menu.title}
-                      </p>}/>
-
-
-
-                  </List.Item>
-                )}
-              />
-
-
-
           </List.Item>
         )}
       />
+
+
 
       </div>
     )
