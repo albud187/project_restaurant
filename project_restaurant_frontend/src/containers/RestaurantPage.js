@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Form, Input, Button } from 'antd';
 import { List,Card } from 'antd';
 import { Row, Col } from 'antd';
-
+import OrderItem from '../forms/OrderItem.js'
 import * as API_PATHS from '../api_path.js'
 
 const API_PATH = API_PATHS.API_PATH
@@ -112,6 +112,7 @@ componentDidMount(){
               title={<p>
               {item.name}
               </p>}/>
+              <OrderItem/>
 
           </List.Item>
         )}
