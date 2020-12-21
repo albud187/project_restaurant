@@ -72,7 +72,7 @@ class RestaurantPage extends Component {
     })
   }
 
-  handleOrderCreate = (event, menuItem) => {
+  handleSaveFoodItem = (event, menuItem) => {
     event.preventDefault()
     const food_item_name = menuItem.name
     const food_item_quantity = event.quantity
@@ -103,6 +103,19 @@ componentDidMount(){
       <h1>state info </h1>
       <p>restaurant name = {this.state.restaurant.name}</p>
       <p>restaurant address = {this.state.restaurant.street_address}</p>
+
+      <List
+        dataSource={this.state.menu_items}
+        renderItem={item => (
+          <List.Item key={item}>
+            <List.Item.Meta
+              title={<p>
+              {item.name}
+              </p>}/>
+
+          </List.Item>
+        )}
+      />
 
       <List
         dataSource={sort_menu_item(this.state.menu_items)}
