@@ -16,11 +16,13 @@ function onlyUnique(value, index, self) {
 function sort_menu_item(menu_items){
   var menus = [];
   var food_item;
+
   for (food_item of menu_items){
     menus.push(food_item.["owner_menu"])
   }
 
   var unique_menus = menus.filter(onlyUnique)
+
 
 
   console.log('function test')
@@ -70,8 +72,20 @@ class RestaurantPage extends Component {
     })
   }
 
+  handleOrderCreate = (event, menuItem) => {
+    event.preventDefault()
+    const food_item_name = menuItem.name
+    const food_item_quantity = event.quantity
+    localStorage['order'].push({
+      'food_item':food_item_name,
+      'quantity':food_item_quantity,
+    })
+
+  }
+
 
 componentDidMount(){
+
   const restaurantID = this.props.match.params.restaurantID;
   this.fetchRestaurant(restaurantID);
   this.fetchMenus(restaurantID);
