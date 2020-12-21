@@ -1,35 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Form, Input, Button } from 'antd';
-import { List,Card } from 'antd';
-import { Row, Col } from 'antd';
+import { List} from 'antd';
 import OrderItem from '../forms/OrderItem.js'
+import Menu from '../components/Menu.js'
 import * as API_PATHS from '../api_path.js'
 
 const API_PATH = API_PATHS.API_PATH
 
-
-function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
-
-function sort_menu_item(menu_items){
-  var menus = [];
-  var food_item;
-
-  for (food_item of menu_items){
-    menus.push(food_item.["owner_menu"])
-  }
-
-  var unique_menus = menus.filter(onlyUnique)
-
-
-
-  console.log('function test')
-  console.log(unique_menus)
-  return(unique_menus)
-
-}
 
 class RestaurantPage extends Component {
 
@@ -61,35 +38,12 @@ class RestaurantPage extends Component {
     })
   }
 
-  fetchMenuItems = (restaurantID) =>{
-    axios.get(`${API_PATH}api/restaurant_items?restaurantID=${restaurantID}`)
-    .then(result=>{
-      this.setState({
-        menu_items:result.data
-      })
-      console.log("fetching menu items")
-      console.log(result.data)
-    })
-  }
-
-  handleSaveFoodItem = (event, menuItem) => {
-    event.preventDefault()
-    const food_item_name = menuItem.name
-    const food_item_quantity = event.quantity
-    localStorage['order'].push({
-      'food_item':food_item_name,
-      'quantity':food_item_quantity,
-    })
-
-  }
-
-
 componentDidMount(){
 
   const restaurantID = this.props.match.params.restaurantID;
   this.fetchRestaurant(restaurantID);
   this.fetchMenus(restaurantID);
-  this.fetchMenuItems(restaurantID);
+
 }
 
 
@@ -104,41 +58,16 @@ componentDidMount(){
       <p>restaurant name = {this.state.restaurant.name}</p>
       <p>restaurant address = {this.state.restaurant.street_address}</p>
 
-      <List
-        dataSource={this.state.menu_items}
-        renderItem={item => (
-          <List.Item key={item}>
-            <List.Item.Meta
-              title={<p>
-              {item.name}
-              </p>}/>
-              <OrderItem/>
-
-          </List.Item>
-        )}
-      />
-
-      <List
-        dataSource={sort_menu_item(this.state.menu_items)}
-        renderItem={item => (
-          <List.Item key={item}>
-            <List.Item.Meta
-              title={<p>
-              {item}
-              </p>}/>
-
-          </List.Item>
-        )}
-      />
 
       <List
         dataSource={this.state.menus}
         renderItem={menu => (
           <List.Item key={menu.id}>
             <List.Item.Meta
-              title={<p>
+              title={<h1>
               {menu.title}
-              </p>}/>
+              </h1>}/>
+              <Menu data={menu}/>
 
           </List.Item>
         )}
