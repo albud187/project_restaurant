@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import { List} from 'antd';
+import OrderItem from './OrderItem.js'
 
 import * as API_PATHS from '../api_path.js'
 
@@ -34,15 +35,13 @@ class MenuItem extends Component {
     return (
       <div>
 
-      <p>MENU_ITEM - {this.props.data}</p>
-
       <List
         dataSource={this.state.menu_items}
         renderItem={item => (
           <List.Item key={item.id}>
             <List.Item.Meta
               title={<p>
-              {item.name}
+              {item.name} - Quantity <OrderItem/>
               </p>}/>
 
           </List.Item>

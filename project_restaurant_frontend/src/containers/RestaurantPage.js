@@ -66,9 +66,9 @@ componentDidMount(){
             <List.Item.Meta
               title={<h1>
               {menu.title}
-              </h1>}/>
-              <Menu data={menu}/>
 
+              <Menu data={menu}/>
+                </h1>}/>
           </List.Item>
         )}
       />
