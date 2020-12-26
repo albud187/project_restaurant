@@ -12,11 +12,10 @@ class OrderItem extends Component {
       <p>
 
       OrderItem Test - {this.props.data.name} -
-
-      <Button htmlType='submit'>+</Button>
+      Price  - ${this.props.data.price}
+      <Button htmlType='button'>+</Button>
       <textarea rows="2" cols="3" name="orderitemcount"/>
-
-      <Button htmlType='submit'>-</Button>
+      <Button htmlType='button'>-</Button>
 
 
 
