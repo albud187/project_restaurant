@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { List} from 'antd';
-import OrderItem from '../forms/OrderItem.js'
+import {Button} from 'antd'
+
 import Menu from '../components/Menu.js'
 import * as API_PATHS from '../api_path.js'
 
@@ -36,6 +37,10 @@ class RestaurantPage extends Component {
       console.log("fetching restaurant menus...")
       console.log(result.data)
     })
+  }
+
+  handleSubmit = (event) =>{
+    //axios.post new order
   }
 
 componentDidMount(){
@@ -73,7 +78,9 @@ componentDidMount(){
         )}
       />
 
-
+      <form>
+        <Button htmlType='submit'>Confirm Order</Button>
+      </form>
 
       </div>
     )
