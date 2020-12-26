@@ -41,7 +41,7 @@ class MenuItem extends Component {
           <List.Item key={item.id}>
             <List.Item.Meta
               title={<p>
-              {item.name} - Quantity <OrderItem/>
+              {item.name} <OrderItem data={item}/>
               </p>}/>
 
           </List.Item>
