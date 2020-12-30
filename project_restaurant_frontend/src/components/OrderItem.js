@@ -10,12 +10,12 @@ class OrderItem extends Component {
     quantity:0
   }
 
-  handleAddItem = (event)=>{
+  handleAddItem = (event,data)=>{
     event.preventDefault()
     this.setState({
       quantity: this.state.quantity + 1
     })
-  
+    localStorage.setItem(data.id,this.state.quantity+1)
   }
 
   handleRemoveItem = (event)=>{
@@ -24,6 +24,7 @@ class OrderItem extends Component {
       quantity: this.state.quantity - 1
     })
   }
+
   render() {
 
 
@@ -32,12 +33,12 @@ class OrderItem extends Component {
 
       <p>
 
-      OrderItem Test - {this.props.data.name} -
+      OrderItem Test {this.props.data.id} - {this.props.data.name} -
       Price  - ${this.props.data.price}
       <Button onClick={event=>this.handleRemoveItem(event)} htmlType='button'>-</Button>
       <textarea rows="2" cols="3" name="orderitemcount" value = {this.state.quantity}/>
 
-      <Button onClick={event=>this.handleAddItem(event)} htmlType='button'>+</Button>
+      <Button onClick={(event, data)=>this.handleAddItem(event, this.props.data)} htmlType='button'>+</Button>
 
       <textarea rows="2" cols="3" name="customquantity"/>
       <Button htmlType='button'>enter custom quantity</Button>
