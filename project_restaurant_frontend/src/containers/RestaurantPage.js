@@ -43,9 +43,11 @@ class RestaurantPage extends Component {
     })
   }
 
-  handleSubmit = (event) =>{
+  handleOrderSubmit = (event) =>{
     //axios.post new order
   }
+
+
 
 componentDidMount(){
 
@@ -83,7 +85,7 @@ componentDidMount(){
       />
 
       <form>
-        <Button htmlType='submit'>Confirm Order</Button>
+        <Button htmlType='submit'>Submit Order</Button>
       </form>
 
       <form>
