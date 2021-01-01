@@ -17,6 +17,10 @@ class RestaurantPage extends Component {
     menu_items:[],
   }
 
+  handleClearOrder = () => {
+    localStorage.clear()
+  }
+
   fetchRestaurant = (restaurantID)=>{
     axios.get(`${API_PATH}api/Restaurants/${restaurantID}/`)
     .then(result=>{
@@ -83,7 +87,7 @@ componentDidMount(){
       </form>
 
       <form>
-        <Button htmlType='submit'>Clear Order</Button>
+        <Button onClick = {()=>this.handleClearOrder()}htmlType='submit'>Clear Order</Button>
       </form>
 
       </div>
