@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Button} from 'antd'
+import { Form } from 'antd';
 
 
 // create function to handle saving items to localstorage
@@ -26,6 +27,15 @@ class OrderItem extends Component {
     localStorage.setItem(data.id,this.state.quantity-1)
   }
 
+  handleSetOrderQuantity = (event,data) =>{
+    event.preventDefault()
+    const custom_quantity = event.target.elements.custom_quantity.value;
+    this.setState({
+      quantity: custom_quantity
+    })
+      localStorage.setItem(data.id,custom_quantity)
+  }
+
   render() {
 
 
@@ -41,8 +51,15 @@ class OrderItem extends Component {
 
       <Button onClick={(event, data)=>this.handleAddItem(event, this.props.data)} htmlType='button'>+</Button>
 
-      <textarea rows="2" cols="3" name="customquantity"/>
-      <Button htmlType='button'>enter custom quantity</Button>
+      <form onSubmit = {(event, data)=>this.handleSetOrderQuantity(event, this.props.data)}>
+        <Form.Item label="input">
+          <input type="number" rows="2" cols="3" name="custom_quantity"/>
+        </Form.Item>
+
+        <Form.Item>
+          <button type="submit">enter custom quantity</button>
+        </Form.Item>
+      </form>
 
 
 

@@ -82,6 +82,10 @@ componentDidMount(){
         <Button htmlType='submit'>Confirm Order</Button>
       </form>
 
+      <form>
+        <Button htmlType='submit'>Clear Order</Button>
+      </form>
+
       </div>
     )
   }
