@@ -23,23 +23,23 @@ axios.post()
       <form>
 
       <Form.Item label="name">
-          <textarea rows="1" cols="50" name="textToMeme" placeholder="name" />
+          <textarea rows="1" cols="50" name="name" placeholder="name" />
       </Form.Item>
 
       <Form.Item label="email">
-          <textarea rows="1" cols="50" name="textToMeme" placeholder="email@domain.com" />
+          <textarea rows="1" cols="50" name="email" placeholder="email@domain.com" />
       </Form.Item>
 
 
       <Form.Item label="phone">
-          <textarea rows="1" cols="50" name="textToMeme" placeholder="123-456-7890" />
+          <textarea rows="1" cols="50" name="phone" placeholder="123-456-7890" />
       </Form.Item>
 
       <h1>show order items from local storage here</h1>
 
 
       <Form.Item label="notes">
-          <textarea rows="10" cols="70" name="textToMeme" placeholder="special order instructions" />
+          <textarea rows="10" cols="70" name="notes" placeholder="special order instructions" />
       </Form.Item>
 
       <Button htmlType='submit'>Confirm Order</Button>
