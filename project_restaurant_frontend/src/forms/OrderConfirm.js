@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Form } from 'antd';
 import {Button} from 'antd'
-
+import TempOrder from '../components/TempOrder.js'
 import * as API_PATHS from '../api_path.js'
 
 const API_PATH = API_PATHS.API_PATH
@@ -10,7 +10,8 @@ const API_PATH = API_PATHS.API_PATH
 
 class OrderConfirmPage extends Component {
 
-  PlaceOrder = (orderID, order) =>{
+
+  placeOrder = (orderID, order) =>{
 axios.post()
   }
 
@@ -36,7 +37,7 @@ axios.post()
       </Form.Item>
 
       <h1>show order items from local storage here</h1>
-
+      <TempOrder/>
 
       <Form.Item label="notes">
           <textarea rows="10" cols="70" name="notes" placeholder="special order instructions" />
