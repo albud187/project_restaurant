@@ -14,7 +14,7 @@ function to_array(myobj) {
   return(op)
 }
 
-class TempOrder extends Component {
+class OrderLineItem extends Component {
   render() {
     return (
       <div>
@@ -26,4 +26,4 @@ class TempOrder extends Component {
   }
 }
 
-export default TempOrder
+export default OrderLineItem

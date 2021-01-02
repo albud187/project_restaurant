@@ -2,11 +2,21 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Form } from 'antd';
 import {Button} from 'antd'
-import TempOrder from '../components/TempOrder.js'
+import OrderLineItem from '../components/OrderLineItem.js'
 import * as API_PATHS from '../api_path.js'
 
 const API_PATH = API_PATHS.API_PATH
 
+
+
+function to_array(input_obj){
+  var output_array = [];
+  var x;
+  for (x of Object.keys(input_obj)){
+    output_array.push({"id":x,"quantity":input_obj[x]})
+  };
+  return(output_array)
+}
 
 class OrderConfirmPage extends Component {
 
@@ -37,7 +47,6 @@ axios.post()
       </Form.Item>
 
       <h1>show order items from local storage here</h1>
-      <TempOrder/>
 
       <Form.Item label="notes">
           <textarea rows="10" cols="70" name="notes" placeholder="special order instructions" />
