@@ -159,3 +159,16 @@ class OrderViewSet(viewsets.ModelViewSet):
 class OrderItemViewSet(viewsets.ModelViewSet):
     serializer_class = OrderItemSerializer
     queryset = OrderItem.objects.all()
+
+def calculate_order(order_dict):
+    #takes in order items
+    #gets price of each order item by using MenuItem.objects.filter
+    #multiplies by quantity from order
+    #adds total cost
+    pass
+
+class OrderCostCalculateView(views.APIView):
+
+    def get(self, request):
+        pass
+    pass
