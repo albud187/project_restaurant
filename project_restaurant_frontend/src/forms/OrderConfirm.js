@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Form } from 'antd';
+import { List} from 'antd';
 import {Button} from 'antd'
 import OrderLineItem from '../components/OrderLineItem.js'
 import * as API_PATHS from '../api_path.js'
@@ -47,6 +48,18 @@ axios.post()
       </Form.Item>
 
       <h1>show order items from local storage here</h1>
+
+      <List
+
+    dataSource={to_array(localStorage)}
+
+    renderItem=
+    {item => (
+      <List.Item key={item.id}>
+        <List.Item.Meta title= {<p>{item.id} - {item.quantity}</p>}/>
+      </List.Item>
+      )}
+          />
 
       <Form.Item label="notes">
           <textarea rows="10" cols="70" name="notes" placeholder="special order instructions" />
