@@ -16,12 +16,43 @@ function to_array(input_obj){
   return(output_array)
 }
 
-async function get_cost(order_id){
-  let data = await axios.get(`${API_PATH}api/MenuItems/${order_id}/`)
+async function get_cost(id){
+  let data = await axios.get(`${API_PATH}api/MenuItems/${id}/`)
   var output = JSON.stringify(data['data']['price'])
   console.log(output + ' is the cost')
+  return(output)
 
 }
+
+function cost(id){
+  const promise = axios.get(`${API_PATH}api/MenuItems/${id}/`)
+  const dataPromise = promise.then((response) =>response.data)
+  console.log('DATA PROMISE')
+  return(dataPromise)
+
+}
+// console.log(cost(2))
+// console.log(typeof cost(2))
+
+
+const id = 1
+const url = (`${API_PATH}api/MenuItems/${id}/`)
+const lst = []
+
+const populateData = (data) =>{lst.push(data)}
+
+function axiosTest (populateData,id) {
+        axios.get(`${API_PATH}api/MenuItems/${id}/`)
+       .then(function(response){
+               populateData(response.data);
+        })
+        .catch(function(error){
+               console.log(error);
+         });
+}
+axiosTest(populateData, 1)
+console.log(lst)
+
 class RestaurantPage extends Component {
 
   state = {
@@ -67,13 +98,10 @@ class RestaurantPage extends Component {
   }
 
 
-
 componentDidMount(){
-  this.whatispromise(1)
   const restaurantID = this.props.match.params.restaurantID;
   this.fetchRestaurant(restaurantID);
   this.fetchMenus(restaurantID);
-  this.whatispromise(1)
 }
 
 
