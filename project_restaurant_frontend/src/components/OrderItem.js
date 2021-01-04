@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import {Button} from 'antd'
 import { Form } from 'antd';
-
+import axios from 'axios'
 
 // create function to handle saving items to localstorage
 
 class OrderItem extends Component {
 
-  
+
 
   state = {
-    quantity:0
+    quantity:0,
+    cost:0,
   }
 
   handleAddItem = (event,data)=>{
