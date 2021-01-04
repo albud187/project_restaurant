@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import {Button} from 'antd'
 import { Form } from 'antd';
 import axios from 'axios'
+import * as API_PATHS from '../api_path.js'
 
+const API_PATH = API_PATHS.API_PATH
 // create function to handle saving items to localstorage
 
 class OrderItem extends Component {
@@ -16,11 +18,18 @@ class OrderItem extends Component {
 
   handleAddItem = (event,data)=>{
     event.preventDefault()
+    localStorage.setItem(data.id )
+    axios.get(`${API_PATH}api/MenuItems/${data.id}/`)
+    .then(result=>{
+      localStorage.setItem(data.id + ' cost', result.data.price)
+    });
+
     this.setState({
       quantity: this.state.quantity + 1
     })
-    localStorage.setItem(data.id,this.state.quantity+1)
+    localStorage.setItem(data.id, this.state.quantity+1);
   }
+
 
   handleRemoveItem = (event,data)=>{
     event.preventDefault()
