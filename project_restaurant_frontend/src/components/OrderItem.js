@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import {Button} from 'antd'
 import { Form } from 'antd';
 import axios from 'axios'
-import * as API_PATHS from '../api_path.js'
 
-const API_PATH = API_PATHS.API_PATH
 // create function to handle saving items to localstorage
 
 class OrderItem extends Component {
@@ -18,16 +16,12 @@ class OrderItem extends Component {
 
   handleAddItem = (event,data)=>{
     event.preventDefault()
-    localStorage.setItem(data.id )
-    axios.get(`${API_PATH}api/MenuItems/${data.id}/`)
-    .then(result=>{
-      localStorage.setItem(data.id + ' cost', result.data.price)
-    });
 
     this.setState({
       quantity: this.state.quantity + 1
     })
-    localStorage.setItem(data.id, this.state.quantity+1);
+    localStorage.setItem(data.id, JSON.stringify({"quantity":this.state.quantity+1,"price":data.price*(this.state.quantity+1)}));
+
   }
 
 
@@ -36,7 +30,7 @@ class OrderItem extends Component {
     this.setState({
       quantity: this.state.quantity - 1
     })
-    localStorage.setItem(data.id,this.state.quantity-1)
+    localStorage.setItem(data.id, JSON.stringify({"quantity":this.state.quantity-1,"price":data.price*(this.state.quantity-1)}));
   }
 
   handleSetOrderQuantity = (event,data) =>{
@@ -45,7 +39,7 @@ class OrderItem extends Component {
     this.setState({
       quantity: custom_quantity
     })
-      localStorage.setItem(data.id,custom_quantity)
+      localStorage.setItem(data.id, JSON.stringify({"quantity":custom_quantity,"price":data.price*(custom_quantity)}))
   }
 
   render() {

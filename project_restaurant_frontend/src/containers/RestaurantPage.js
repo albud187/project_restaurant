@@ -16,21 +16,6 @@ function to_array(input_obj){
   return(output_array)
 }
 
-async function get_cost(id){
-  let data = await axios.get(`${API_PATH}api/MenuItems/${id}/`)
-  var output = JSON.stringify(data['data']['price'])
-  console.log(output + ' is the cost')
-  return(output)
-
-}
-
-function cost(id){
-  const promise = axios.get(`${API_PATH}api/MenuItems/${id}/`)
-  const dataPromise = promise.then((response) =>response.data)
-  console.log('DATA PROMISE')
-  return(dataPromise)
-
-}
 // console.log(cost(2))
 // console.log(typeof cost(2))
 
