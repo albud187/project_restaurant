@@ -78,8 +78,8 @@ class RestaurantPage extends Component {
     })
   }
 
-  handleOrderSubmit = (event) =>{
-    //turns localStorage into a list of items to order with cost and everything
+  handleOrderSubmit = () =>{
+    this.props.history.push('/order_placement')
   }
 
 
@@ -115,7 +115,7 @@ componentDidMount(){
       />
 
       <form>
-        <Button htmlType='submit'>Submit Order</Button>
+        <Button onClick = {()=>this.handleOrderSubmit()} htmlType='submit'>Submit Order</Button>
       </form>
 
       <form>
