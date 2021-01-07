@@ -20,7 +20,7 @@ class OrderItem extends Component {
     this.setState({
       quantity: this.state.quantity + 1
     })
-    localStorage.setItem(data.id, JSON.stringify({"quantity":this.state.quantity+1,"price":data.price*(this.state.quantity+1)}));
+    localStorage.setItem(data.id, JSON.stringify({"name":data.name,"quantity":this.state.quantity+1,"price":data.price*(this.state.quantity+1)}));
 
   }
 
@@ -30,7 +30,7 @@ class OrderItem extends Component {
     this.setState({
       quantity: this.state.quantity - 1
     })
-    localStorage.setItem(data.id, JSON.stringify({"quantity":this.state.quantity-1,"price":data.price*(this.state.quantity-1)}));
+    localStorage.setItem(data.id, JSON.stringify({"name":data.name,"quantity":this.state.quantity-1,"price":data.price*(this.state.quantity-1)}));
   }
 
   handleSetOrderQuantity = (event,data) =>{
@@ -39,7 +39,7 @@ class OrderItem extends Component {
     this.setState({
       quantity: custom_quantity
     })
-      localStorage.setItem(data.id, JSON.stringify({"quantity":custom_quantity,"price":data.price*(custom_quantity)}))
+      localStorage.setItem(data.id, JSON.stringify({"name":data.name,"quantity":custom_quantity,"price":data.price*(custom_quantity)}))
   }
 
   render() {

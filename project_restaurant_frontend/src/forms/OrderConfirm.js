@@ -13,6 +13,7 @@ const API_PATH = API_PATHS.API_PATH
 function to_array(input_obj){
   var output_array = [];
   var x;
+  var y;
   for (x of Object.keys(input_obj)){
     output_array.push({"id":x,"quantity":input_obj[x]})
   };
